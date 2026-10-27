@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from src.config import COR_HISTOGRAMA, CORES_ORIGEM, LEGENDA_ORIGEM, VARS_QUANT
+from src.config import COR_HISTOGRAMA, CORES_ORIGEM, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT
 from src.data_loader import load_data
 
 st.title("Dashboard 1 — Correlação e Distribuição")
@@ -17,6 +17,7 @@ with st.sidebar:
         "Variáveis Quantitativas",
         options=VARS_QUANT,
         default=VARS_QUANT,
+        format_func=ROTULOS.get,
         help="Selecione as variáveis quantitativas que deseja analisar no dashboard.",
     )
 
@@ -34,7 +35,7 @@ with st.sidebar:
         else:
             minimo, maximo, passo = float(df[var].min()), float(df[var].max()), 0.1
         intervalos[var] = st.slider(
-            f"Intervalo de {var}",
+            f"Intervalo de {ROTULOS[var]}",
             min_value=minimo,
             max_value=maximo,
             value=(minimo, maximo),
@@ -63,6 +64,7 @@ with col_correlacao:
         # Spearman, como na EDA (nenhuma variável passou no teste de normalidade), em formato longo
         corr = (
             df_filtrado[variaveis]
+            .rename(columns=ROTULOS)
             .corr(method="spearman")
             .rename_axis(index="var_y", columns="var_x")
             .stack()
@@ -70,17 +72,18 @@ with col_correlacao:
             .reset_index()
         )
         # Só o triângulo inferior, sem a diagonal (sempre 1): a matriz é simétrica, o resto é repetição
-        ordem = {var: i for i, var in enumerate(variaveis)}
+        rotulos = [ROTULOS[var] for var in variaveis]
+        ordem = {rotulo: i for i, rotulo in enumerate(rotulos)}
         corr = corr[corr["var_y"].map(ordem) > corr["var_x"].map(ordem)]
 
         base = alt.Chart(corr).encode(
             x=alt.X(
                 "var_x:N",
                 title=None,
-                sort=variaveis[:-1],  # a última variável só aparece nas linhas
+                sort=rotulos[:-1],  # a última variável só aparece nas linhas
                 axis=alt.Axis(labelAngle=-45, labelFontSize=13, labelOverlap=False),  # inclinado para não esconder rótulos
             ),
-            y=alt.Y("var_y:N", title=None, sort=variaveis[1:], axis=alt.Axis(labelFontSize=14)),  # a primeira só nas colunas
+            y=alt.Y("var_y:N", title=None, sort=rotulos[1:], axis=alt.Axis(labelFontSize=14)),  # a primeira só nas colunas
         )
         heatmap = base.mark_rect().encode(
             color=alt.Color(
@@ -122,7 +125,7 @@ with col_distribuicao:
                     alt.Chart(df_filtrado[[var, "origem"]])
                     .mark_bar()
                     .encode(
-                        x=alt.X(f"{var}:Q", bin=alt.Bin(maxbins=20), title=var),
+                        x=alt.X(f"{var}:Q", bin=alt.Bin(maxbins=20), title=ROTULOS[var]),
                         y=alt.Y("count()", title="Carros"),
                         tooltip=[alt.Tooltip("count()", title="Carros")],
                     )
@@ -137,7 +140,7 @@ with col_distribuicao:
                     histograma = histograma.mark_bar(color=COR_HISTOGRAMA)
 
                 with coluna:
-                    st.altair_chart(histograma, width="stretch", alt=f"Histograma da variável {var}")
+                    st.altair_chart(histograma, width="stretch", alt=f"Histograma da variável {ROTULOS[var]}")
 
             # Número ímpar de variáveis: a legenda ocupa o espaço que sobrou na última linha
             if separar_por_classe and len(variaveis[inicio : inicio + 2]) == 1:

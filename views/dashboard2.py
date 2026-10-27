@@ -1,7 +1,7 @@
 import altair as alt
 import streamlit as st
 
-from src.config import CORES_ORIGEM
+from src.config import CORES_ORIGEM, ROTULOS
 from src.data_loader import load_data
 
 st.title("Dashboard 2 — KPIs")
@@ -26,13 +26,14 @@ if df_kpi.empty:
 else:
     k1, k2, k3, k4 = st.columns(4)
     k1.metric("Total de carros", f"{len(df_kpi)}")
-    k2.metric("mpg médio", f"{df_kpi['mpg'].mean():.1f}")
-    k3.metric("Potência média", f"{df_kpi['horsepower'].mean():.0f} cv")
-    k4.metric("Peso médio", f"{df_kpi['weight'].mean():,.0f} lb".replace(",", "."))
+    k2.metric("mpg médio (milhas por galão)", f"{df_kpi['mpg'].mean():.1f}")
+    k3.metric("Potência média (horsepower)", f"{df_kpi['horsepower'].mean():.0f} cv")
+    k4.metric("Peso médio (weight)", f"{df_kpi['weight'].mean():,.0f} lb".replace(",", "."))
 
     st.subheader("Comparação por origem")
     medias = df_kpi.groupby("origem")[["mpg", "horsepower", "weight"]].mean().reset_index()
     medias = medias.melt(id_vars="origem", var_name="variavel", value_name="media")
+    medias["variavel"] = medias["variavel"].map(ROTULOS)
     # weight tem escala muito maior que mpg/horsepower: um painel por variável, eixo livre
     barras = (
         alt.Chart(medias)
@@ -47,4 +48,4 @@ else:
     )
     rotulos = barras.mark_text(dy=-8).encode(text=alt.Text("media:Q", format=".1f"), color=alt.value("black"))
     grafico = (barras + rotulos).facet(column=alt.Column("variavel:N", title=None)).resolve_scale(y="independent")
-    st.altair_chart(grafico, alt="Médias de mpg, horsepower e weight por origem (Nacional e Importado)")
+    st.altair_chart(grafico, alt="Médias de mpg (milhas por galão), horsepower (potência) e weight (peso) por origem (Nacional e Importado)")
