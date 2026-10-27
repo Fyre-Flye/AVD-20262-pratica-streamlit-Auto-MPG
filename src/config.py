@@ -13,9 +13,11 @@ ROTULOS = {
     "acceleration": "Aceleração (s)",
 }
 
-# Identidade visual do projeto: laranja para Nacional, roxo escuro para Importado
-COR_NACIONAL = "#e8742a"
-COR_IMPORTADO = "#2d223a"
+# TESTE de paleta inspirada na Chevron: azul para Nacional, vermelho escuro para Importado
+AZUL = "#0056A2"
+VERMELHO = "#9D1A36"
+COR_NACIONAL = AZUL
+COR_IMPORTADO = VERMELHO
 COR_HISTOGRAMA = COR_NACIONAL
 CORES_ORIGEM = alt.Scale(domain=["Nacional", "Importado"], range=[COR_NACIONAL, COR_IMPORTADO])
 
