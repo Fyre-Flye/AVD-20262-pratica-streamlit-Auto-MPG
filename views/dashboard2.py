@@ -1,4 +1,4 @@
-import plotly.express as px
+import altair as alt
 import streamlit as st
 
 from src.config import CORES_ORIGEM
@@ -34,15 +34,17 @@ else:
     medias = df_kpi.groupby("origem")[["mpg", "horsepower", "weight"]].mean().reset_index()
     medias = medias.melt(id_vars="origem", var_name="variavel", value_name="media")
     # weight tem escala muito maior que mpg/horsepower: um painel por variável, eixo livre
-    fig_bar = px.bar(
-        medias,
-        x="origem",
-        y="media",
-        color="origem",
-        facet_col="variavel",
-        color_discrete_map=CORES_ORIGEM,
-        text_auto=".1f",
+    barras = (
+        alt.Chart(medias)
+        .mark_bar()
+        .encode(
+            x=alt.X("origem:N", title=None, axis=alt.Axis(labelAngle=0)),
+            y=alt.Y("media:Q", title="Média"),
+            color=alt.Color("origem:N", title="Origem", scale=CORES_ORIGEM, legend=None),
+            tooltip=["origem", alt.Tooltip("media:Q", title="Média", format=".1f")],
+        )
+        .properties(width=220, height=260)
     )
-    fig_bar.update_yaxes(matches=None, showticklabels=True)
-    fig_bar.update_layout(showlegend=False, margin=dict(t=30, b=10, l=10, r=10))
-    st.plotly_chart(fig_bar, width="stretch")
+    rotulos = barras.mark_text(dy=-8).encode(text=alt.Text("media:Q", format=".1f"), color=alt.value("black"))
+    grafico = (barras + rotulos).facet(column=alt.Column("variavel:N", title=None)).resolve_scale(y="independent")
+    st.altair_chart(grafico, alt="Médias de mpg, horsepower e weight por origem (Nacional e Importado)")
