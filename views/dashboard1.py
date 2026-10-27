@@ -104,6 +104,12 @@ with col_correlacao:
             width="stretch",
             alt="Mapa de calor (triângulo inferior, sem a diagonal) da correlação de Spearman entre as variáveis quantitativas selecionadas",
         )
+        st.caption(
+            "**Como ler:** os valores vão de -1 a 1. "
+            "Perto de 1 (vermelho), as variáveis sobem juntas. "
+            "Perto de -1 (azul), uma sobe e a outra desce. "
+            "Perto de 0, não há relação."
+        )
 
     st.caption("Glossário")
     st.table(
