@@ -8,7 +8,7 @@ VARS_QUANT = ["mpg", "displacement", "horsepower", "weight", "acceleration"]
 ROTULOS = {
     "mpg": "Consumo (km/L)",
     "displacement": "Cilindrada (cm³)",
-    "horsepower": "Potência (kW)",
+    "horsepower": "Potência (hp)",
     "weight": "Peso (kg)",
     "acceleration": "Aceleração (s)",
 }

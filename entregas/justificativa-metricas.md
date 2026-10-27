@@ -1,6 +1,6 @@
 # Justificativa das métricas — Dashboard 2
 
-Dataset: Auto MPG (UCI), 392 carros de 1970 a 1982, após remover 6 linhas com `horsepower` ausente. Os valores são exibidos no Sistema Internacional (km/L, cm³, kW, kg); o CSV tratado continua nas unidades originais. Os KPIs reagem aos widgets do dashboard: **origem** (Nacional = EUA; Importado = Europa + Japão) e **ano do modelo**.
+Dataset: Auto MPG (UCI), 392 carros de 1970 a 1982, após remover 6 linhas com `horsepower` ausente. Os valores são exibidos no Sistema Internacional (km/L, cm³, kg), exceto a potência, que fica em cavalos de potência (hp); o CSV tratado continua nas unidades originais. Os KPIs reagem aos widgets do dashboard: **origem** (Nacional = EUA; Importado = Europa + Japão) e **ano do modelo**.
 
 Público-alvo comum às métricas: pessoas que querem entender, de forma rápida, o perfil da frota e o consumo de combustível da época (ex.: quem analisa o mercado automotivo ou avalia políticas de eficiência), sem precisar ler histogramas ou matrizes de correlação.
 
@@ -21,9 +21,9 @@ Público-alvo comum às métricas: pessoas que querem entender, de forma rápida
 - **O que comunica ao público-alvo:** o quão econômica é a frota em média, sem precisar interpretar a distribuição (ex.: "os importados andam cerca de 3,9 km a mais por litro").
 
 ## Métrica 3: Potência média
-- **Variável:** `horsepower` (potência do motor; o dataset original traz hp e o app converte para kW).
-- **O que mede:** a potência média dos motores no recorte (78 kW no total; 60 kW nos importados; 89 kW nos nacionais).
-- **Por que foi escolhida:** potência está fortemente ligada ao consumo (quanto mais potente, menos econômico), então ajuda a explicar a métrica de `mpg`. Usamos a média, mesmo a variável sendo assimétrica à direita, porque o KPI precisa ser simples de ler; a mediana é menor (70 kW) e fica como ressalva.
+- **Variável:** `horsepower` (potência do motor, em cavalos de potência (hp), a mesma unidade do dataset).
+- **O que mede:** a potência média dos motores no recorte (104 hp no total; 80 hp nos importados; 119 hp nos nacionais).
+- **Por que foi escolhida:** potência está fortemente ligada ao consumo (quanto mais potente, menos econômico), então ajuda a explicar a métrica de `mpg`. Usamos a média, mesmo a variável sendo assimétrica à direita, porque o KPI precisa ser simples de ler; a mediana é menor (93,5 hp) e fica como ressalva.
 - **Público-alvo:** o comum descrito acima.
 - **Qual decisão pode ser apoiada por essa métrica?** Entender se uma diferença de consumo entre grupos vem do perfil de motor (mais potente ou mais modesto) antes de atribuí-la à origem.
 - **O que comunica ao público-alvo:** o perfil de motor da frota recortada (ex.: "carros nacionais têm motores bem mais potentes, e isso tem um custo em consumo").
@@ -37,7 +37,7 @@ Público-alvo comum às métricas: pessoas que querem entender, de forma rápida
 - **O que comunica ao público-alvo:** o porte típico dos carros da amostra (ex.: "os nacionais pesam cerca de 480 kg a mais, em média, que os importados").
 
 ## Visual: Comparação por origem (gráfico de barras)
-- **Variáveis:** `mpg` (consumo, km/L), `horsepower` (potência, kW) e `weight` (peso, kg), agrupadas por `origem`.
+- **Variáveis:** `mpg` (consumo, km/L), `horsepower` (potência, hp) e `weight` (peso, kg), agrupadas por `origem`.
 - **O que mede:** a média de cada variável para carros Nacionais e Importados lado a lado, em um painel por variável (as escalas são muito diferentes, então cada painel tem o seu eixo).
 - **Por que foi escolhido:** reúne as três métricas acima em uma só comparação visual, que responde à pergunta central do dashboard: o que diferencia carros nacionais e importados?
 - **O que comunica ao público-alvo:** que os importados são mais leves, menos potentes e mais econômicos, e que o consumo acompanha o porte do carro. A comparação descreve a amostra e não prova que a origem é a causa; o estudo é observacional e os carros importados vendidos nos EUA da época eram, em geral, compactos.

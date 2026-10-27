@@ -1,12 +1,12 @@
 import pandas as pd
 import streamlit as st
 
-# O dataset original usa unidades imperiais; o app exibe tudo no Sistema Internacional (SI).
+# O dataset original usa unidades imperiais; o app exibe no Sistema Internacional (SI), exceto a
+# potência, que fica em cavalos de potência (hp), como no dataset.
 # coluna: (fator de conversão, casas decimais após converter)
 CONVERSOES_SI = {
     "mpg": (0.425144, 2),          # milhas por galão (EUA) -> km/L
     "displacement": (16.387064, 0),  # polegadas cúbicas -> cm³
-    "horsepower": (0.7457, 1),     # hp -> kW
     "weight": (0.45359237, 0),     # libras -> kg
 }
 
