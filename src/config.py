@@ -4,13 +4,13 @@ import altair as alt
 
 VARS_QUANT = ["mpg", "displacement", "horsepower", "weight", "acceleration"]
 
-# Nomes das colunas (em inglês) traduzidos para exibir nos dashboards
+# Nomes das colunas (em inglês) traduzidos, com a unidade do SI, para exibir nos dashboards
 ROTULOS = {
-    "mpg": "Consumo (milhas por galão)",
-    "displacement": "Cilindrada",
-    "horsepower": "Potência",
-    "weight": "Peso",
-    "acceleration": "Aceleração",
+    "mpg": "Consumo (km/L)",
+    "displacement": "Cilindrada (cm³)",
+    "horsepower": "Potência (kW)",
+    "weight": "Peso (kg)",
+    "acceleration": "Aceleração (s)",
 }
 
 # Cores em tons de sangue, iguais às do tema (.streamlit/config.toml): rosa claro para Nacional,

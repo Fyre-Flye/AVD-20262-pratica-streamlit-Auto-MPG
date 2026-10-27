@@ -38,6 +38,7 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
   - Os gráficos foram reescritos de Plotly para Altair e passaram a usar as cores do tema dela (rosa claro e vermelho `#c1121f`), conforme pedi que seguíssemos as alterações dela.
   - O heatmap teve os rótulos do eixo inclinados em 45°, porque na coluna estreita alguns eram escondidos e só `mpg` e `weight` apareciam.
   - Os nomes das variáveis, que estão em inglês, foram traduzidos para português nos dashboards (ex.: `horsepower` aparece como "Potência"), a pedido meu.
+  - As unidades foram convertidas para o Sistema Internacional (km/L, cm³, kW, kg) no `src/data_loader.py`, a pedido meu; o CSV tratado e o notebook continuam nas unidades originais, e a justificativa das métricas foi atualizada com os novos valores.
   - O histograma deixou de ser um selectbox com uma variável só e virou uma grade com um histograma por variável selecionada, como na implementação de referência da professora.
 
 - **Rejeitado:**
