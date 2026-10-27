@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from src.config import COR_HISTOGRAMA, CORES_ORIGEM, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT
+from src.config import AZUL, COR_HISTOGRAMA, CORES_ORIGEM, ESCALA_CORRELACAO, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT, VERMELHO
 from src.data_loader import load_data
 
 st.title("Dashboard 1 — Correlação e Distribuição")
@@ -89,7 +89,7 @@ with col_correlacao:
             color=alt.Color(
                 "correlacao:Q",
                 title="Spearman",
-                scale=alt.Scale(scheme="redblue", domain=[-1, 1], reverse=True),
+                scale=ESCALA_CORRELACAO,
                 legend=alt.Legend(orient="bottom", titleFontSize=14, labelFontSize=13),
             ),
             tooltip=[alt.Tooltip("var_x", title="Variável 1"), alt.Tooltip("var_y", title="Variável 2"), alt.Tooltip("correlacao:Q", title="Correlação", format=".2f")],
@@ -106,8 +106,8 @@ with col_correlacao:
         )
         st.caption(
             "**Como ler:** os valores vão de -1 a 1. "
-            "Perto de 1 (vermelho), as variáveis sobem juntas. "
-            "Perto de -1 (azul), uma sobe e a outra desce. "
+            f"Perto de 1 (:color[**vermelho**]{{foreground=\"{VERMELHO}\"}}), as variáveis sobem juntas. "
+            f"Perto de -1 (:color[**azul**]{{foreground=\"{AZUL}\"}}), uma sobe e a outra desce. "
             "Perto de 0, não há relação."
         )
 
