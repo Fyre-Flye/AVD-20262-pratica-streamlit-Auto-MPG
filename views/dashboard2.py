@@ -1,4 +1,5 @@
 import altair as alt
+import pandas as pd
 import streamlit as st
 
 from src.config import CORES_ORIGEM, ROTULOS
@@ -49,3 +50,24 @@ else:
     rotulos = barras.mark_text(dy=-8).encode(text=alt.Text("media:Q", format=".1f"), color=alt.value("black"))
     grafico = (barras + rotulos).facet(column=alt.Column("variavel:N", title=None)).resolve_scale(y="independent")
     st.altair_chart(grafico, alt="Médias de consumo (km/L), potência (kW) e peso (kg) por origem (Nacional e Importado)")
+
+
+# Glossário dos termos usados neste dashboard
+st.divider()
+st.subheader("Glossário")
+st.dataframe(
+    pd.DataFrame(
+        [
+            ("Indicador (KPI)", "Número-resumo que mostra o desempenho de algo de forma rápida, como as médias do topo desta página."),
+            ("Total de carros", "Quantidade de carros que atendem aos filtros de origem e ano do modelo."),
+            ("Consumo médio", "Média de quilômetros percorridos por litro de combustível (km/L). Quanto maior, mais econômico."),
+            ("Potência média", "Média da força dos motores, em quilowatts (kW)."),
+            ("Peso médio", "Média da massa dos carros, em quilogramas (kg)."),
+            ("Origem", "Nacional = carros dos EUA; Importado = carros da Europa e do Japão."),
+            ("Ano do modelo", "Ano de fabricação do modelo, de 1970 a 1982."),
+        ],
+        columns=["Termo", "Significado"],
+    ),
+    hide_index=True,
+    width="stretch",
+)
