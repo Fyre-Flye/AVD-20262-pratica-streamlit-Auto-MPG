@@ -50,6 +50,8 @@ for var, (inicio, fim) in intervalos.items():
 
 st.caption(f"{len(df_filtrado)} de {len(df)} carros dentro dos intervalos escolhidos.")
 
+ALTURA_HISTOGRAMA = 200
+
 # Dashboard 1: correlação (heatmap) à esquerda, distribuição (histogramas) à direita
 col_correlacao, col_distribuicao = st.columns([1, 1.5])
 
@@ -143,26 +145,64 @@ with col_distribuicao:
         for inicio in range(0, len(variaveis), 2):
             colunas = st.columns(2)
             for coluna, var in zip(colunas, variaveis[inicio : inicio + 2]):
+                divisao = alt.Bin(maxbins=20)
                 histograma = (
                     alt.Chart(df_filtrado[[var, "origem"]])
                     .mark_bar()
                     .encode(
-                        x=alt.X(f"{var}:Q", bin=alt.Bin(maxbins=20), title=ROTULOS[var]),
+                        x=alt.X(f"{var}:Q", bin=divisao, title=ROTULOS[var]),
                         y=alt.Y("count()", title="Carros"),
-                        tooltip=[alt.Tooltip("count()", title="Carros")],
                     )
-                    .properties(height=200)
                 )
                 if separar_por_classe:
                     histograma = histograma.encode(
                         color=alt.Color("origem:N", title="Origem", scale=CORES_ORIGEM, legend=None),
-                        tooltip=[alt.Tooltip("origem", title="Origem"), alt.Tooltip("count()", title="Carros")],
                     )
                 else:
                     histograma = histograma.mark_bar(color=COR_HISTOGRAMA)
 
+                # Camada invisível com a altura inteira do gráfico, POR CIMA das barras: o mouse é captado
+                # em qualquer ponto da faixa, mesmo onde a barra é muito baixa. Ela calcula a faixa
+                # (inicio–fim) e as contagens de cada faixa para o tooltip e para a linha de cursor.
+                cursor = alt.selection_point(fields=["inicio"], on="pointerover", clear="pointerout", empty=False)
+                por_faixa = (
+                    alt.Chart(df_filtrado[[var, "origem"]])
+                    .transform_bin(["inicio", "fim"], field=var, bin=divisao)
+                    .transform_calculate(
+                        faixa="format(datum.inicio, '~g') + ' – ' + format(datum.fim, '~g')",
+                        e_nacional="datum.origem == 'Nacional' ? 1 : 0",
+                        e_importado="datum.origem == 'Importado' ? 1 : 0",
+                        meio="(datum.inicio + datum.fim) / 2",
+                    )
+                    .transform_joinaggregate(
+                        total="count()", nacional="sum(e_nacional)", importado="sum(e_importado)", groupby=["inicio"]
+                    )
+                )
+                dicas = [alt.Tooltip("faixa:N", title=ROTULOS[var]), alt.Tooltip("total:Q", title="Carros")]
+                if separar_por_classe:
+                    dicas += [alt.Tooltip("nacional:Q", title="Nacional"), alt.Tooltip("importado:Q", title="Importado")]
+
+                zona_hover = (
+                    por_faixa.mark_bar(opacity=0)
+                    .encode(
+                        x=alt.X("inicio:Q", title=ROTULOS[var]),
+                        x2="fim:Q",
+                        y=alt.value(0),
+                        y2=alt.value(ALTURA_HISTOGRAMA),
+                        tooltip=dicas,
+                    )
+                    .add_params(cursor)
+                )
+                # Linha tracejada vertical no meio da faixa sob o mouse, como um cursor
+                linha_cursor = (
+                    por_faixa.transform_filter(cursor)
+                    .mark_rule(strokeDash=[5, 4], color="#555555")
+                    .encode(x=alt.X("meio:Q", title=ROTULOS[var]))
+                )
+                grafico = alt.layer(histograma, linha_cursor, zona_hover).properties(height=ALTURA_HISTOGRAMA)
+
                 with coluna:
-                    st.altair_chart(histograma, width="stretch", alt=f"Histograma da variável {ROTULOS[var]}")
+                    st.altair_chart(grafico, width="stretch", alt=f"Histograma da variável {ROTULOS[var]}")
 
             # Número ímpar de variáveis: a legenda ocupa o espaço que sobrou na última linha
             if separar_por_classe and len(variaveis[inicio : inicio + 2]) == 1:
