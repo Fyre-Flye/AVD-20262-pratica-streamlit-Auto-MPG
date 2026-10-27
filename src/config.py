@@ -13,11 +13,10 @@ ROTULOS = {
     "acceleration": "Aceleração (s)",
 }
 
-# Cores em tons de sangue, iguais às do tema (.streamlit/config.toml): rosa claro para Nacional,
-# vermelho arterial para Importado
-COR_NACIONAL = "#f4a6a6"
-COR_IMPORTADO = "#c1121f"
-COR_HISTOGRAMA = COR_IMPORTADO
+# Identidade visual do projeto: laranja para Nacional, roxo escuro para Importado
+COR_NACIONAL = "#e8742a"
+COR_IMPORTADO = "#2d223a"
+COR_HISTOGRAMA = COR_NACIONAL
 CORES_ORIGEM = alt.Scale(domain=["Nacional", "Importado"], range=[COR_NACIONAL, COR_IMPORTADO])
 
 # Legenda da origem em texto, para caber no espaço livre da grade de histogramas

@@ -35,7 +35,7 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
 - **Modificado:**
   - O layout do Dashboard 1 segue o rascunho da professora; o do Dashboard 2 não tinha rascunho dela e foi proposto pela IA (4 KPIs no topo e gráfico por origem abaixo), por isso precisa da minha revisão.
   - Depois do `git merge` com o repositório da professora, os rascunhos passaram de `prompts/` para `entregas/`, com nomes com hífen, seguindo a nova estrutura dela.
-  - Os gráficos foram reescritos de Plotly para Altair e passaram a usar as cores do tema dela (rosa claro e vermelho `#c1121f`), conforme pedi que seguíssemos as alterações dela.
+  - Os gráficos foram reescritos de Plotly para Altair e inicialmente passaram a usar as cores do tema dela (rosa claro e vermelho `#c1121f`), conforme pedi que seguíssemos as alterações dela. Depois pedi para voltar à nossa identidade visual anterior (laranja `#e8742a` e roxo `#2d223a`), e o `.streamlit/config.toml` foi restaurado à versão anterior.
   - O heatmap teve os rótulos do eixo inclinados em 45°, porque na coluna estreita alguns eram escondidos e só `mpg` e `weight` apareciam.
   - Os nomes das variáveis, que estão em inglês, foram traduzidos para português nos dashboards (ex.: `horsepower` aparece como "Potência"), a pedido meu.
   - As unidades foram convertidas para o Sistema Internacional (km/L, cm³, kW, kg) no `src/data_loader.py`, a pedido meu; o CSV tratado e o notebook continuam nas unidades originais, e a justificativa das métricas foi atualizada com os novos valores.
