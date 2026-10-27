@@ -58,14 +58,11 @@ st.caption("Glossário")
 st.table(
     pd.DataFrame(
         [
-            ("KPI (indicador)", "Número-resumo, como as médias do topo."),
-            ("Total de carros", "Carros que passam nos filtros."),
-            ("Consumo médio", "Média de km rodados por litro. Maior = mais econômico."),
-            ("Potência média", "Média da força dos motores."),
-            ("Peso médio", "Média da massa dos carros."),
+            ("Consumo", "Km rodados por litro. Maior = mais econômico."),
+            ("Potência", "Força do motor."),
+            ("Peso", "Massa do carro."),
             ("Origem", "Nacional: EUA. Importado: Europa e Japão."),
             ("Ano do modelo", "Ano de fabricação, de 1970 a 1982."),
-            ("Comparação por origem", "Média de cada variável, Nacional contra Importado."),
         ],
         columns=["Termo", "Significado"],
     ).set_index("Termo")

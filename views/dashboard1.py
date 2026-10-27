@@ -115,11 +115,7 @@ with col_correlacao:
                 ("Peso", "Massa do carro."),
                 ("Aceleração", "Tempo para acelerar. Maior = mais lento."),
                 ("Origem", "Nacional: EUA. Importado: Europa e Japão."),
-                ("Spearman", "Mede se duas variáveis variam juntas, de -1 a 1."),
-                ("Vermelho / azul", "Vermelho: crescem juntas. Azul: uma sobe, a outra cai."),
-                ("Intervalo", "Faixa de valores mantida pelo filtro."),
-                ("Histograma", "Quantos carros há em cada faixa de valores."),
-                ("Distinguir por classe", "Colore os histogramas por origem."),
+                ("Ano do modelo", "Ano de fabricação, de 1970 a 1982."),
             ],
             columns=["Termo", "Significado"],
         ).set_index("Termo")
