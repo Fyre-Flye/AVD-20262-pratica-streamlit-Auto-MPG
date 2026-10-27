@@ -54,20 +54,19 @@ else:
 
 # Glossário dos termos usados neste dashboard
 st.divider()
-st.subheader("Glossário")
-st.dataframe(
+st.caption("Glossário")
+st.table(
     pd.DataFrame(
         [
-            ("Indicador (KPI)", "Número-resumo que mostra o desempenho de algo de forma rápida, como as médias do topo desta página."),
-            ("Total de carros", "Quantidade de carros que atendem aos filtros de origem e ano do modelo."),
-            ("Consumo médio", "Média de quilômetros percorridos por litro de combustível (km/L). Quanto maior, mais econômico."),
-            ("Potência média", "Média da força dos motores, em quilowatts (kW)."),
-            ("Peso médio", "Média da massa dos carros, em quilogramas (kg)."),
-            ("Origem", "Nacional = carros dos EUA; Importado = carros da Europa e do Japão."),
-            ("Ano do modelo", "Ano de fabricação do modelo, de 1970 a 1982."),
+            ("KPI (indicador)", "Número-resumo, como as médias do topo."),
+            ("Total de carros", "Carros que passam nos filtros."),
+            ("Consumo médio", "Média de km rodados por litro. Maior = mais econômico."),
+            ("Potência média", "Média da força dos motores."),
+            ("Peso médio", "Média da massa dos carros."),
+            ("Origem", "Nacional: EUA. Importado: Europa e Japão."),
+            ("Ano do modelo", "Ano de fabricação, de 1970 a 1982."),
+            ("Comparação por origem", "Média de cada variável, Nacional contra Importado."),
         ],
         columns=["Termo", "Significado"],
-    ),
-    hide_index=True,
-    width="stretch",
+    ).set_index("Termo")
 )

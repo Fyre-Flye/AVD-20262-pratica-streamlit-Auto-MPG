@@ -105,6 +105,26 @@ with col_correlacao:
             alt="Mapa de calor (triângulo inferior, sem a diagonal) da correlação de Spearman entre as variáveis quantitativas selecionadas",
         )
 
+    st.caption("Glossário")
+    st.table(
+        pd.DataFrame(
+            [
+                ("Consumo", "Km rodados por litro."),
+                ("Cilindrada", "Volume do motor."),
+                ("Potência", "Força do motor."),
+                ("Peso", "Massa do carro."),
+                ("Aceleração", "Tempo para acelerar. Maior = mais lento."),
+                ("Origem", "Nacional: EUA. Importado: Europa e Japão."),
+                ("Spearman", "Mede se duas variáveis variam juntas, de -1 a 1."),
+                ("Vermelho / azul", "Vermelho: crescem juntas. Azul: uma sobe, a outra cai."),
+                ("Intervalo", "Faixa de valores mantida pelo filtro."),
+                ("Histograma", "Quantos carros há em cada faixa de valores."),
+                ("Distinguir por classe", "Colore os histogramas por origem."),
+            ],
+            columns=["Termo", "Significado"],
+        ).set_index("Termo")
+    )
+
 with col_distribuicao:
     st.subheader("Distribuição")
 
@@ -146,24 +166,3 @@ with col_distribuicao:
             if separar_por_classe and len(variaveis[inicio : inicio + 2]) == 1:
                 colunas[1].markdown(LEGENDA_ORIGEM)
 
-
-# Glossário dos termos usados neste dashboard
-st.divider()
-st.subheader("Glossário")
-st.dataframe(
-    pd.DataFrame(
-        [
-            ("Consumo", "Quantos quilômetros o carro percorre com um litro de combustível (km/L). Quanto maior, mais econômico."),
-            ("Cilindrada", "Volume total dos cilindros do motor, em centímetros cúbicos (cm³). Motores maiores costumam ter mais potência."),
-            ("Potência", "Força do motor, em quilowatts (kW)."),
-            ("Peso", "Massa do carro, em quilogramas (kg)."),
-            ("Aceleração", "Tempo de aceleração do carro, em segundos (s). Quanto maior, mais lento."),
-            ("Origem", "Nacional = carros dos EUA; Importado = carros da Europa e do Japão."),
-            ("Correlação de Spearman", "Mede de -1 a 1 o quanto duas variáveis variam juntas. Perto de 1: crescem juntas; perto de -1: uma cresce quando a outra cai; perto de 0: sem relação."),
-            ("Histograma", "Gráfico de barras que mostra quantos carros caem em cada faixa de valores de uma variável."),
-        ],
-        columns=["Termo", "Significado"],
-    ),
-    hide_index=True,
-    width="stretch",
-)
