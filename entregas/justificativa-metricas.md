@@ -15,7 +15,7 @@ Público-alvo comum às métricas: pessoas que querem entender, de forma rápida
 ## Métrica 2: mpg médio
 - **Variável:** `mpg` (milhas por galão, consumo de combustível).
 - **O que mede:** a média de milhas que o carro percorre com um galão no recorte escolhido. Quanto maior, mais econômico (23,4 mpg no total; 29,1 nos importados; 20,0 nos nacionais).
-- **Por que foi escolhida:** `mpg` é a variável de interesse do estudo e a que mais se relaciona com as demais (correlação de Spearman de cerca de -0,85 com peso, cilindrada e potência). Resume o desempenho de consumo em um único número.
+- **Por que foi escolhida:** `mpg` (milhas por galão) é a variável de interesse do estudo e a que mais se relaciona com as demais (correlação de Spearman de cerca de -0,85 com `weight` (peso), `displacement` (cilindrada) e `horsepower` (potência)). Resume o desempenho de consumo em um único número.
 - **Público-alvo:** o comum descrito acima.
 - **Qual decisão pode ser apoiada por essa métrica?** Comparar a economia de combustível entre origens e entre anos, por exemplo para avaliar se a eficiência da frota melhorou ao longo do período.
 - **O que comunica ao público-alvo:** o quão econômica é a frota em média, sem precisar interpretar a distribuição (ex.: "os importados andam cerca de 9 milhas a mais por galão").
@@ -37,7 +37,7 @@ Público-alvo comum às métricas: pessoas que querem entender, de forma rápida
 - **O que comunica ao público-alvo:** o porte típico dos carros da amostra (ex.: "os nacionais pesam cerca de 1.050 lb (uns 475 kg) a mais, em média, que os importados").
 
 ## Visual: Comparação por origem (gráfico de barras)
-- **Variáveis:** `mpg`, `horsepower` e `weight`, agrupadas por `origem`.
+- **Variáveis:** `mpg` (milhas por galão), `horsepower` (potência) e `weight` (peso), agrupadas por `origem`.
 - **O que mede:** a média de cada variável para carros Nacionais e Importados lado a lado, em um painel por variável (as escalas são muito diferentes, então cada painel tem o seu eixo).
 - **Por que foi escolhido:** reúne as três métricas acima em uma só comparação visual, que responde à pergunta central do dashboard: o que diferencia carros nacionais e importados?
 - **O que comunica ao público-alvo:** que os importados são mais leves, menos potentes e mais econômicos, e que o consumo acompanha o porte do carro. A comparação descreve a amostra e não prova que a origem é a causa; o estudo é observacional e os carros importados vendidos nos EUA da época eram, em geral, compactos.
