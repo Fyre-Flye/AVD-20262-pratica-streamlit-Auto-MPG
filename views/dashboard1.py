@@ -78,7 +78,7 @@ with col_correlacao:
                 "var_x:N",
                 title=None,
                 sort=variaveis[:-1],  # a última variável só aparece nas linhas
-                axis=alt.Axis(labelAngle=0, labelFontSize=14),
+                axis=alt.Axis(labelAngle=-45, labelFontSize=13, labelOverlap=False),  # inclinado para não esconder rótulos
             ),
             y=alt.Y("var_y:N", title=None, sort=variaveis[1:], axis=alt.Axis(labelFontSize=14)),  # a primeira só nas colunas
         )
@@ -87,7 +87,7 @@ with col_correlacao:
                 "correlacao:Q",
                 title="Spearman",
                 scale=alt.Scale(scheme="redblue", domain=[-1, 1], reverse=True),
-                legend=alt.Legend(titleFontSize=14, labelFontSize=13),
+                legend=alt.Legend(orient="bottom", titleFontSize=14, labelFontSize=13),
             ),
             tooltip=["var_x", "var_y", alt.Tooltip("correlacao:Q", format=".2f")],
         )
