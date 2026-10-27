@@ -9,7 +9,7 @@ Claude Code (CLI da Anthropic), com o modelo Claude Sonnet 5.5.
 
 ## Prompt usado
 
-Os pedidos foram feitos em sequência, em português. Eles estão resumidos abaixo, na ordem em que foram enviados (o primeiro e os dois últimos estão quase como escritos):
+Os pedidos foram feitos em sequência, em português. Eles estão resumidos abaixo, na ordem em que foram enviados (alguns estão quase como escritos):
 
 1. "execute os procedimentos de instalação e inicialização deste projeto"
 2. "adapte o projeto para o meu notebook, mpg-auto, ele se encontra em uma pasta anterior a essa chamada EDA_AVD, salve em notebooks com o nome eda_original-user.ipynb, crie uma cópia do arquivo acima e cole as células de download de eda-com-downloads.ipynb [...] em resumo o projeto streamlit precisa rodar com meu notebook e dataset aparentemente"
@@ -19,7 +19,14 @@ Os pedidos foram feitos em sequência, em português. Eles estão resumidos abai
 6. "Faça commits separados pelas features que a gente fez. Antes de commitar me diga como você planeja fazer isso." e depois "commite e dê push em um de cada vez. Sem coautoria sua. Há commits do repo da professora, sincronize o projeto antes, evite conflitos que vão vir da origem."
 7. "pode usar as cores dela. Siga as alterações dela."
 8. "preencha a justificativa das métricas" e a correção do heatmap, que mostrava só `mpg` e `weight` nos rótulos
-9. "preencha a declaração de uso de IA e, como os nomes estão em inglês, se possível em parênteses ponha a tradução do termo."
+9. "preencha a declaração de uso de IA e, como os nomes estão em inglês, se possível em parênteses ponha a tradução do termo." e, depois, "traduza todos os termos para português nessa aplicação" e "se puder use o sistema internacional de medida"
+10. "faça um pequeno glossário (em tabela, duas colunas, termo e significado) em cada dashboard", com os ajustes "faça uma tabela menor, embaixo da correlação de Spearman. Frases curtas" e "eu falei só os termos de domínio, domínio automotivo"
+11. "volte com nossa identidade visual anterior"
+12. "escreva brevemente como se lê a correlação de Spearman abaixo do gráfico dele", depois o pedido de usar o azul e o vermelho das nossas cores nessas palavras e de um parágrafo de exemplo, e por fim "deixa, tire a interpretação"
+13. "onde posso procurar novas identidades visuais pela internet?", "procure pela identidade da Chevron para começar" e "teste essa paleta no app"
+14. "use cavalo de potência para potência do motor"
+15. Sobre a leitura dos histogramas: "faça o 1" (tooltip com a faixa de valores) e, depois, a zona de hover na altura inteira de cada faixa e "uma linha dashed vertical por cada eixo, pra dar uma impressão de cursor"
+16. "commite tudo separado por mudança, assim como fizemos e pode dar push" e a inclusão da pasta `slides/` ("os slides são nossos, eu que botei, pode subir também")
 
 O template do prompt de rascunho → esqueleto está preenchido em [layout-skeleton-prompt.md](layout-skeleton-prompt.md), e os rascunhos estão em [../entregas/](../entregas/).
 
@@ -39,6 +46,12 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
   - O heatmap teve os rótulos do eixo inclinados em 45°, porque na coluna estreita alguns eram escondidos e só `mpg` e `weight` apareciam.
   - Os nomes das variáveis, que estão em inglês, foram traduzidos para português nos dashboards (ex.: `horsepower` aparece como "Potência"), a pedido meu.
   - As unidades foram convertidas para o Sistema Internacional (km/L, cm³, kg) no `src/data_loader.py`, a pedido meu; depois pedi que a potência ficasse em cavalos de potência (hp), como no dataset; o CSV tratado e o notebook continuam nas unidades originais, e a justificativa das métricas foi atualizada com os novos valores.
+  - O glossário de cada dashboard foi reduzido a frases curtas e limitado aos termos do domínio automotivo do dataset; no Dashboard 1 ele fica embaixo do heatmap de Spearman.
+  - O heatmap ganhou uma legenda curta "Como ler" abaixo dele, com as palavras "vermelho" e "azul" nas mesmas cores da escala do gráfico.
+  - A paleta de cores passou a ser inspirada na identidade da Chevron (azul `#0056A2` e vermelho escuro `#9D1A36`, a partir de códigos de sites de terceiros, não de um guia oficial), como teste a meu pedido. Ela é só uma inspiração de cores, sem usar logo nem marca da empresa. Ainda não decidi se fica.
+  - Os histogramas ganharam tooltip com a faixa de valores de cada barra, uma zona de hover na altura inteira da faixa (porque algumas barras eram baixas demais para o mouse) e uma linha tracejada vertical que acompanha o mouse, a meu pedido.
+  - A potência ficou em cavalos de potência (hp) e as demais unidades no Sistema Internacional (km/L, cm³ e kg).
+  - A pasta `slides/` com os PDFs das aulas 21 e 22, que eu mesmo adicionei, foi incluída no repositório.
   - O histograma deixou de ser um selectbox com uma variável só e virou uma grade com um histograma por variável selecionada, como na implementação de referência da professora.
 
 - **Rejeitado:**
@@ -46,6 +59,8 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
   - Os dois dashboards na mesma página, que a IA tinha feito no início. Pedi páginas separadas, e a professora sugere abas (`st.tabs`), mas segui a minha escolha e usei páginas.
   - Os `# TODO` originais do esqueleto, que foram implementados e removidos.
   - Um primeiro gráfico de barras com um eixo único, descartado porque `weight` tem escala muito maior que `mpg` e `horsepower` e achatava as barras; ficou um painel por variável.
+  - O parágrafo de exemplo que interpretava o heatmap de Spearman (relações entre consumo, peso, cilindrada, potência e aceleração), que a IA escreveu e eu pedi para retirar.
+  - A primeira versão do glossário, com termos de estatística e de interface (Spearman, histograma, intervalo etc.), que a IA incluiu e eu pedi para limitar ao domínio automotivo.
   - A coautoria da IA nos commits, que pedi para não incluir.
 
 **Limitação:** a IA não teve acesso às instruções escritas no quadro pela professora, só aos arquivos do repositório. Onde algo parecia inconsistente, ela inferiu o que fazer e avisou, e eu revisei. A IA também não conseguiu abrir o app no navegador para conferir o resultado visualmente; as conferências foram feitas por testes automatizados do Streamlit e por imagens dos gráficos geradas fora do app.
