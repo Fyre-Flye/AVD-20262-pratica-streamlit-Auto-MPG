@@ -37,7 +37,7 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
   - Depois do `git merge` com o repositório da professora, os rascunhos passaram de `prompts/` para `entregas/`, com nomes com hífen, seguindo a nova estrutura dela.
   - Os gráficos foram reescritos de Plotly para Altair e passaram a usar as cores do tema dela (rosa claro e vermelho `#c1121f`), conforme pedi que seguíssemos as alterações dela.
   - O heatmap teve os rótulos do eixo inclinados em 45°, porque na coluna estreita alguns eram escondidos e só `mpg` e `weight` apareciam.
-  - Os nomes das variáveis, que estão em inglês, ganharam a tradução entre parênteses nos dashboards (ex.: `horsepower (potência)`).
+  - Os nomes das variáveis, que estão em inglês, foram traduzidos para português nos dashboards (ex.: `horsepower` aparece como "Potência"), a pedido meu.
   - O histograma deixou de ser um selectbox com uma variável só e virou uma grade com um histograma por variável selecionada, como na implementação de referência da professora.
 
 - **Rejeitado:**

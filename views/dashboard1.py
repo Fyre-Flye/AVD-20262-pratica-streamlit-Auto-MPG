@@ -92,7 +92,7 @@ with col_correlacao:
                 scale=alt.Scale(scheme="redblue", domain=[-1, 1], reverse=True),
                 legend=alt.Legend(orient="bottom", titleFontSize=14, labelFontSize=13),
             ),
-            tooltip=["var_x", "var_y", alt.Tooltip("correlacao:Q", format=".2f")],
+            tooltip=[alt.Tooltip("var_x", title="Variável 1"), alt.Tooltip("var_y", title="Variável 2"), alt.Tooltip("correlacao:Q", title="Correlação", format=".2f")],
         )
         valores = base.mark_text(fontSize=16).encode(
             text=alt.Text("correlacao:Q", format=".2f"),
@@ -134,7 +134,7 @@ with col_distribuicao:
                 if separar_por_classe:
                     histograma = histograma.encode(
                         color=alt.Color("origem:N", title="Origem", scale=CORES_ORIGEM, legend=None),
-                        tooltip=["origem", alt.Tooltip("count()", title="Carros")],
+                        tooltip=[alt.Tooltip("origem", title="Origem"), alt.Tooltip("count()", title="Carros")],
                     )
                 else:
                     histograma = histograma.mark_bar(color=COR_HISTOGRAMA)
