@@ -1,4 +1,4 @@
-# Justificativa das métricas — Dashboard 2
+# Justificativa das métricas e visuais — Dashboard 2
 
 Dataset: Auto MPG (UCI), 392 carros de 1970 a 1982, após remover 6 linhas com `horsepower` ausente. Os valores são exibidos no Sistema Internacional (km/L, cm³, kg), exceto a potência, que fica em cavalos de potência (hp); o CSV tratado continua nas unidades originais. Os KPIs reagem aos widgets do dashboard: **origem** (Nacional = EUA; Importado = Europa + Japão) e **ano do modelo**.
 
@@ -41,3 +41,15 @@ Público-alvo comum às métricas: pessoas que querem entender, de forma rápida
 - **O que mede:** a média de cada variável para carros Nacionais e Importados lado a lado, em um painel por variável (as escalas são muito diferentes, então cada painel tem o seu eixo).
 - **Por que foi escolhido:** reúne as três métricas acima em uma só comparação visual, que responde à pergunta central do dashboard: o que diferencia carros nacionais e importados?
 - **O que comunica ao público-alvo:** que os importados são mais leves, menos potentes e mais econômicos, e que o consumo acompanha o porte do carro. A comparação descreve a amostra e não prova que a origem é a causa; o estudo é observacional e os carros importados vendidos nos EUA da época eram, em geral, compactos.
+
+## Visual: Consumo médio por ano (gráfico de linha)
+- **Variáveis:** `mpg` (consumo, km/L), `model_year` (ano do modelo) e `origem`.
+- **O que mede:** a média de consumo de cada ano do modelo, com uma linha para Nacional e outra para Importado. Respeita os filtros de origem e de ano.
+- **Por que foi escolhido:** o ano é uma variável ordenada, e a linha é a forma mais direta de mostrar a evolução no tempo. Responde se a eficiência da frota melhorou entre 1970 e 1982.
+- **O que comunica ao público-alvo:** que o consumo médio subiu no período, de 7,5 km/L em 1970 para 13,6 km/L em 1982, e que os importados ficam acima dos nacionais em todo o período (10,7 contra 6,5 km/L em 1970; 15,2 contra 12,7 km/L em 1982). Em cada ano há poucos carros por origem, então as oscilações entre anos vizinhos devem ser lidas com cautela.
+
+## Visual: Peso × consumo (gráfico de dispersão)
+- **Variáveis:** `weight` (peso, kg), `mpg` (consumo, km/L) e `origem`; o tooltip mostra também o nome do carro e o ano.
+- **O que mede:** a relação entre peso e consumo, com um ponto por carro, colorido por origem.
+- **Por que foi escolhido:** é a relação mais forte do dataset (cerca de -0,88 em Spearman) e mostra o dado de cada carro, o que o gráfico de médias não mostra. Mostra também onde ficam os grupos: os nacionais concentram-se nos carros mais pesados, e os importados nos mais leves.
+- **O que comunica ao público-alvo:** que, quanto mais pesado o carro, menor o consumo em km/L. Dentro de cada origem a relação continua (-0,88 nos nacionais e -0,58 nos importados), então o peso explica boa parte da diferença entre as origens, e a origem sozinha não explica.
