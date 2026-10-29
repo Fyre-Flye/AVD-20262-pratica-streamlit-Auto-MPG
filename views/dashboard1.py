@@ -2,7 +2,18 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from src.config import AZUL, COR_HISTOGRAMA, COR_IMPORTADO, COR_NACIONAL, CORES_ORIGEM, ESCALA_CORRELACAO, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT, VERMELHO
+from src.config import (
+    AZUL_CLARO,
+    AZUL_ESCURO,
+    COR_HISTOGRAMA,
+    COR_IMPORTADO,
+    COR_NACIONAL,
+    CORES_ORIGEM,
+    ESCALA_CORRELACAO,
+    LEGENDA_ORIGEM,
+    ROTULOS,
+    VARS_QUANT,
+)
 from src.data_loader import load_data
 
 st.title("Dashboard 1 — Correlação e Distribuição")
@@ -108,8 +119,8 @@ with col_correlacao:
         )
         st.caption(
             "**Como ler:** os valores vão de -1 a 1. "
-            f"Perto de 1 (:color[**vermelho**]{{foreground=\"{VERMELHO}\"}}), as variáveis sobem juntas. "
-            f"Perto de -1 (:color[**azul**]{{foreground=\"{AZUL}\"}}), uma sobe e a outra desce. "
+            f"Perto de 1 (:color[**azul-claro**]{{foreground=\"{AZUL_CLARO}\"}}), as variáveis sobem juntas. "
+            f"Perto de -1 (:color[**azul-escuro**]{{foreground=\"{AZUL_ESCURO}\"}}), uma sobe e a outra desce. "
             "Perto de 0, não há relação."
         )
 
