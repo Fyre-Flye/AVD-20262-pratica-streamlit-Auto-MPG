@@ -25,9 +25,21 @@ COR_HISTOGRAMA = COR_NACIONAL
 ESCALA_CORRELACAO = alt.Scale(domain=[-1, 0, 1], range=[AZUL_ESCURO, FUNDO_NEUTRO, AZUL_CLARO])
 CORES_ORIGEM = alt.Scale(domain=["Nacional", "Importado"], range=[COR_NACIONAL, COR_IMPORTADO])
 
-# Legenda da origem em texto, para caber no espaço livre da grade de histogramas
+
+# Texto com fundo na cor da classe e letra em branco claro, para ler em qualquer tema (HTML:
+# o markdown de cor do Streamlit não garante o fundo, e st.caption deixa o texto desbotado)
+def destaque(texto, cor):
+    return (
+        f'<span style="background:{cor}; color:{FUNDO_NEUTRO}; padding:0 0.4em; line-height:1.4; '
+        f'border-radius:0.25em; font-weight:600; white-space:nowrap">{texto}</span>'
+    )
+
+
+# Legenda da origem numa linha só, com as etiquetas lado a lado e alinhadas ao centro
 LEGENDA_ORIGEM = (
-    f"**Origem**  \n"
-    f":color[■]{{foreground=\"{COR_NACIONAL}\"}} Nacional  \n"
-    f":color[■]{{foreground=\"{COR_IMPORTADO}\"}} Importado"
+    '<div style="display:flex; align-items:center; gap:0.5em; font-size:0.9em">'
+    "<strong>Origem</strong>"
+    f"{destaque('Nacional', COR_NACIONAL)}"
+    f"{destaque('Importado', COR_IMPORTADO)}"
+    "</div>"
 )
