@@ -9,6 +9,8 @@ from src.config import (
     COR_IMPORTADO,
     COR_NACIONAL,
     CORES_ORIGEM,
+    destaque,
+    FUNDO_NEUTRO,
     ESCALA_CORRELACAO,
     LEGENDA_ORIGEM,
     ROTULOS,
@@ -109,7 +111,7 @@ with col_correlacao:
         )
         valores = base.mark_text(fontSize=16).encode(
             text=alt.Text("correlacao:Q", format=".2f"),
-            color=alt.condition("abs(datum.correlacao) > 0.5", alt.value("white"), alt.value("black")),
+            color=alt.condition("abs(datum.correlacao) > 0.5", alt.value(FUNDO_NEUTRO), alt.value("black")),
         )
 
         st.altair_chart(
@@ -117,11 +119,12 @@ with col_correlacao:
             width="stretch",
             alt="Mapa de calor (triângulo inferior, sem a diagonal) da correlação de Spearman entre as variáveis quantitativas selecionadas",
         )
-        st.caption(
+        st.markdown(
             "**Como ler:** os valores vão de -1 a 1. "
-            f"Perto de 1 (:color[**azul-claro**]{{foreground=\"{AZUL_CLARO}\"}}), as variáveis sobem juntas. "
-            f"Perto de -1 (:color[**azul-escuro**]{{foreground=\"{AZUL_ESCURO}\"}}), uma sobe e a outra desce. "
-            "Perto de 0, não há relação."
+            f"Perto de 1 ({destaque('azul-claro', AZUL_CLARO)}), as variáveis sobem juntas. "
+            f"Perto de -1 ({destaque('azul-escuro', AZUL_ESCURO)}), uma sobe e a outra desce. "
+            "Perto de 0, não há relação.",
+            unsafe_allow_html=True,
         )
 
     st.caption("Glossário")
@@ -150,16 +153,25 @@ with col_distribuicao:
     else:
         # Com número par de variáveis não sobra espaço na grade: a legenda vai acima dela
         if separar_por_classe and len(variaveis) % 2 == 0:
-            st.markdown(LEGENDA_ORIGEM)
+            st.markdown(LEGENDA_ORIGEM, unsafe_allow_html=True)
 
         # O tooltip do Vega não aceita cor por linha; como a ordem das linhas é fixa (faixa, carros,
-        # Nacional, Importado), a 3ª e a 4ª linhas são coloridas com a cor de cada classe.
+        # Nacional, Importado), a 3ª e a 4ª linhas ganham fundo com a cor de cada classe. O tooltip do
+        # heatmap tem só 3 linhas, por isso a 3ª só conta quando não é a última.
         if separar_por_classe:
+            linha = "#vg-tooltip-element table tr"
             st.html(
-                f"<style>"
-                f"#vg-tooltip-element tr:nth-child(3) td {{ color: {COR_NACIONAL} !important; }}"
-                f"#vg-tooltip-element tr:nth-child(4) td {{ color: {COR_IMPORTADO} !important; }}"
-                f"</style>"
+                "<style>"
+                f"{linha} td.key {{ text-align: left !important; padding-right: 1.2em !important; }}"
+                f"{linha}:nth-child(3):not(:last-child) {{ background: {COR_NACIONAL}; }}"
+                f"{linha}:nth-child(4) {{ background: {COR_IMPORTADO}; }}"
+                f"{linha}:nth-child(3):not(:last-child) td, {linha}:nth-child(4) td "
+                f"{{ color: {FUNDO_NEUTRO} !important; padding: 0.15em 0.5em !important; }}"
+                f"{linha}:nth-child(3):not(:last-child) td:first-child, {linha}:nth-child(4) td:first-child "
+                "{ border-radius: 0.25em 0 0 0.25em; }"
+                f"{linha}:nth-child(3):not(:last-child) td:last-child, {linha}:nth-child(4) td:last-child "
+                "{ border-radius: 0 0.25em 0.25em 0; font-weight: 600; }"
+                "</style>"
             )
 
         # Um histograma por variável selecionada, em grade de 2 colunas (cada um com a sua escala)
@@ -227,5 +239,5 @@ with col_distribuicao:
 
             # Número ímpar de variáveis: a legenda ocupa o espaço que sobrou na última linha
             if separar_por_classe and len(variaveis[inicio : inicio + 2]) == 1:
-                colunas[1].markdown(LEGENDA_ORIGEM)
+                colunas[1].markdown(LEGENDA_ORIGEM, unsafe_allow_html=True)
 
