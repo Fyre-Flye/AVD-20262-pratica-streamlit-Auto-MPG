@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from src.config import AZUL, COR_HISTOGRAMA, CORES_ORIGEM, ESCALA_CORRELACAO, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT, VERMELHO
+from src.config import AZUL, COR_HISTOGRAMA, COR_IMPORTADO, COR_NACIONAL, CORES_ORIGEM, ESCALA_CORRELACAO, LEGENDA_ORIGEM, ROTULOS, VARS_QUANT, VERMELHO
 from src.data_loader import load_data
 
 st.title("Dashboard 1 — Correlação e Distribuição")
@@ -140,6 +140,16 @@ with col_distribuicao:
         # Com número par de variáveis não sobra espaço na grade: a legenda vai acima dela
         if separar_por_classe and len(variaveis) % 2 == 0:
             st.markdown(LEGENDA_ORIGEM)
+
+        # O tooltip do Vega não aceita cor por linha; como a ordem das linhas é fixa (faixa, carros,
+        # Nacional, Importado), a 3ª e a 4ª linhas são coloridas com a cor de cada classe.
+        if separar_por_classe:
+            st.html(
+                f"<style>"
+                f"#vg-tooltip-element tr:nth-child(3) td {{ color: {COR_NACIONAL} !important; }}"
+                f"#vg-tooltip-element tr:nth-child(4) td {{ color: {COR_IMPORTADO} !important; }}"
+                f"</style>"
+            )
 
         # Um histograma por variável selecionada, em grade de 2 colunas (cada um com a sua escala)
         for inicio in range(0, len(variaveis), 2):
