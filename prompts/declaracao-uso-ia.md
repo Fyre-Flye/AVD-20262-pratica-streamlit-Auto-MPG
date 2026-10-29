@@ -56,9 +56,12 @@ O template do prompt de rascunho → esqueleto está preenchido em [layout-skele
   - A pasta `slides/` com os PDFs das aulas 21 e 22, que eu mesmo adicionei, foi incluída no repositório.
   - O histograma deixou de ser um selectbox com uma variável só e virou uma grade com um histograma por variável selecionada, como na implementação de referência da professora.
 
+  - Depois da Aula 23, a IA conferiu o repositório contra o checklist dos slides. A partir disso, pedi para: adicionar mais dois visuais ao Dashboard 2 (gráfico de linha do consumo médio por ano e dispersão peso × consumo), para chegar a 3 visuais além das 4 métricas; trocar as páginas separadas por abas (`st.tabs`), como a professora sugere; e fazer o resto das pendências (`requirements.txt` com `altair` no lugar do `plotly`, que não é mais usado, `notebooks/eda.ipynb` com o meu notebook no lugar do placeholder e texto da justificativa dos novos visuais). Com as abas, os filtros dos dois dashboards ficam juntos na sidebar, com o nome do dashboard no título.
+  - O deploy no Streamlit Community Cloud é feito por mim, com a minha conta do GitHub.
+
 - **Rejeitado:**
   - A primeira versão em Plotly, trocada por Altair (preferido pela professora no Dashboard 1 e esperado no Dashboard 2).
-  - Os dois dashboards na mesma página, que a IA tinha feito no início. Pedi páginas separadas, e a professora sugere abas (`st.tabs`), mas segui a minha escolha e usei páginas.
+  - Os dois dashboards na mesma página, que a IA tinha feito no início. Pedi páginas separadas e depois, a partir da Aula 23, mudei para abas (`st.tabs`), como a professora sugere.
   - Os `# TODO` originais do esqueleto, que foram implementados e removidos.
   - Um primeiro gráfico de barras com um eixo único, descartado porque `weight` tem escala muito maior que `mpg` e `horsepower` e achatava as barras; ficou um painel por variável.
   - O parágrafo de exemplo que interpretava o heatmap de Spearman (relações entre consumo, peso, cilindrada, potência e aceleração), que a IA escreveu e eu pedi para retirar.
