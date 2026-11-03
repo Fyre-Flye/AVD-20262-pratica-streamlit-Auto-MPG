@@ -13,25 +13,26 @@ ROTULOS = {
     "acceleration": "Aceleração (s)",
 }
 
-# Paleta inspirada na Chevron (azul e vermelho), em tons mais claros que os da marca para ler bem
-# nos dois temas: azul para Nacional, vermelho para Importado
-AZUL = "#2F80D1"
-VERMELHO = "#D6455F"
-FUNDO_NEUTRO = "#F8F9F4"
+# Paleta: azul e vermelho do gradiente "azul para vermelho" (schemecolor.com) para Nacional e Importado,
+# com cinza claro no meio (correlação perto de 0)
+AZUL = "#1034A6"
+CINZA_CLARO = "#D9D9D9"
+VERMELHO = "#F62D2D"
+FUNDO_NEUTRO = "#F8F9F4"  # letra sobre as cores escuras
 COR_NACIONAL = AZUL
 COR_IMPORTADO = VERMELHO
 COR_HISTOGRAMA = COR_NACIONAL
 
-# Escala do heatmap de correlação: azul (negativa), neutro no zero, vermelho (positiva)
-ESCALA_CORRELACAO = alt.Scale(domain=[-1, 0, 1], range=[AZUL, FUNDO_NEUTRO, VERMELHO])
+# Escala do heatmap de correlação: azul (-1), cinza claro (0), vermelho (+1), misturados em RGB
+ESCALA_CORRELACAO = alt.Scale(domain=[-1, 0, 1], range=[AZUL, CINZA_CLARO, VERMELHO], interpolate="rgb")
 CORES_ORIGEM = alt.Scale(domain=["Nacional", "Importado"], range=[COR_NACIONAL, COR_IMPORTADO])
 
 
 # Texto com fundo na cor da classe e letra em branco claro, para ler em qualquer tema (HTML:
 # o markdown de cor do Streamlit não garante o fundo, e st.caption deixa o texto desbotado)
-def destaque(texto, cor):
+def destaque(texto, cor, letra=FUNDO_NEUTRO):
     return (
-        f'<span style="background:{cor}; color:{FUNDO_NEUTRO}; padding:0 0.4em; line-height:1.4; '
+        f'<span style="background:{cor}; color:{letra}; padding:0 0.4em; line-height:1.4; '
         f'border-radius:0.25em; font-weight:600; white-space:nowrap">{texto}</span>'
     )
 

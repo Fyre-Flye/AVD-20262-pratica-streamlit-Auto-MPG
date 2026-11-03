@@ -4,6 +4,7 @@ import streamlit as st
 
 from src.config import (
     AZUL,
+    CINZA_CLARO,
     COR_HISTOGRAMA,
     COR_IMPORTADO,
     COR_NACIONAL,
@@ -111,7 +112,7 @@ def render():
             )
             valores = base.mark_text(fontSize=16).encode(
                 text=alt.Text("correlacao:Q", format=".2f"),
-                color=alt.condition("abs(datum.correlacao) > 0.5", alt.value(FUNDO_NEUTRO), alt.value("black")),
+                color=alt.condition("abs(datum.correlacao) < 0.5", alt.value("#1a1a1a"), alt.value(FUNDO_NEUTRO)),  # letra escura sobre o cinza claro
             )
 
             st.altair_chart(
@@ -123,7 +124,7 @@ def render():
                 "**Como ler:** os valores vão de -1 a 1. "
                 f"Perto de 1 ({destaque('vermelho', VERMELHO)}), as variáveis sobem juntas. "
                 f"Perto de -1 ({destaque('azul', AZUL)}), uma sobe e a outra desce. "
-                "Perto de 0, não há relação.",
+                f"Perto de 0 ({destaque('cinza', CINZA_CLARO, '#1a1a1a')}), não há relação.",
                 unsafe_allow_html=True,
             )
 
