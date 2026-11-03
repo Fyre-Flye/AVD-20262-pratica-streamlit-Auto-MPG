@@ -245,3 +245,6 @@ data/raw/*
 # Skills do Streamlit (symlinks para o venv; cada aluno roda `streamlit skills`)
 .claude/skills/
 .agents/skills/
+
+# Declaração de uso de IA: não versionar por enquanto (edições locais ficam fora do Git)
+prompts/declaracao-uso-ia.md
