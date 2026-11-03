@@ -3,7 +3,8 @@ import streamlit as st
 
 from views import dashboard1, dashboard2
 
-st.set_page_config(page_title="Auto MPG", layout="wide")
+# [IA] Claude Code – favicon (assets/favicon.png) na aba do navegador.
+st.set_page_config(page_title="Auto MPG", layout="wide", page_icon="assets/favicon.png")
 
 st.title("Auto MPG")
 
