@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from src.config import CORES_ORIGEM, ROTULOS
+from src.config import CORES_ORIGEM, FUNDO_NEUTRO, ROTULOS
 from src.data_loader import load_data
 
 
@@ -48,7 +48,8 @@ def render():
         )
         .properties(width=220, height=260)
     )
-    rotulos = barras.mark_text(dy=-8).encode(text=alt.Text("media:Q", format=".1f"), color=alt.value("black"))
+    # Valor dentro da barra, em branco claro: legível nos temas claro e escuro (preto sumia no escuro)
+    rotulos = barras.mark_text(dy=14, fontWeight="bold").encode(text=alt.Text("media:Q", format=".1f"), color=alt.value(FUNDO_NEUTRO))
     grafico = (barras + rotulos).facet(column=alt.Column("variavel:N", title=None)).resolve_scale(y="independent")
     st.altair_chart(grafico, alt="Médias de consumo (km/L), potência (hp) e peso (kg) por origem (Nacional e Importado)")
 
