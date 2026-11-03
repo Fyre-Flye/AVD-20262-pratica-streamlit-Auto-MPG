@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 
+# [IA] Claude Code – conversão das unidades para o SI e cache da leitura dos dados (@st.cache_data).
 # O dataset original usa unidades imperiais; o app exibe no Sistema Internacional (SI), exceto a
 # potência, que fica em cavalos de potência (hp), como no dataset.
 # coluna: (fator de conversão, casas decimais após converter)

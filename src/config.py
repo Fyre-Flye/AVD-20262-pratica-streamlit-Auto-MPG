@@ -1,3 +1,4 @@
+# [IA] Claude Code – constantes, rótulos em português, paleta de cores e funções de apoio visual (legendas e etiquetas).
 """Constantes compartilhadas pelos dashboards (mesmas listas do notebook de EDA)."""
 
 import altair as alt

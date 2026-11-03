@@ -1,3 +1,4 @@
+# [IA] Claude Code – Dashboard 1: filtros, heatmap de Spearman, histogramas, glossário e legendas (sintaxe de Altair, depuração e testes).
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -77,6 +78,7 @@ def render():
         elif len(df_filtrado) < 30:
             st.warning("Poucos carros nos intervalos escolhidos para calcular a correlação.")
         else:
+            # [IA] Claude Code – sintaxe do heatmap de correlação em Altair.
             # Spearman, como na EDA (nenhuma variável passou no teste de normalidade), em formato longo
             corr = (
                 df_filtrado[variaveis]
@@ -156,6 +158,7 @@ def render():
             if separar_por_classe and len(variaveis) % 2 == 0:
                 st.markdown(LEGENDA_ORIGEM, unsafe_allow_html=True)
 
+            # [IA] Claude Code – CSS do tooltip para colorir as linhas por classe.
             # O tooltip do Vega não aceita cor por linha; como a ordem das linhas é fixa (faixa, carros,
             # Nacional, Importado), a 3ª e a 4ª linhas ganham fundo com a cor de cada classe. O tooltip do
             # heatmap tem só 3 linhas, por isso a 3ª só conta quando não é a última.
@@ -175,6 +178,7 @@ def render():
                     "</style>"
                 )
 
+            # [IA] Claude Code – histogramas em grade, com tooltip por faixa e linha de cursor (Altair).
             # Um histograma por variável selecionada, em grade de 2 colunas (cada um com a sua escala)
             for inicio in range(0, len(variaveis), 2):
                 colunas = st.columns(2)

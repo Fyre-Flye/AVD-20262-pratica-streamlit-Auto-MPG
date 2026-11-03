@@ -1,3 +1,4 @@
+# [IA] Claude Code – Dashboard 2: código dos gráficos e das abas; a escolha das métricas, dos gráficos e da justificativa partiu de sugestões da IA (fora das diretrizes, declarado no Uso nº 3).
 import altair as alt
 import pandas as pd
 import streamlit as st

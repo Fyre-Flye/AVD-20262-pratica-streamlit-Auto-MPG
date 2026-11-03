@@ -1,3 +1,4 @@
+# [IA] Claude Code – esqueleto do app.py a partir do rascunho e organização dos dois dashboards em abas (st.tabs).
 import streamlit as st
 
 from views import dashboard1, dashboard2
