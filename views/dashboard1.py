@@ -3,8 +3,7 @@ import pandas as pd
 import streamlit as st
 
 from src.config import (
-    AZUL_CLARO,
-    AZUL_ESCURO,
+    AZUL,
     COR_HISTOGRAMA,
     COR_IMPORTADO,
     COR_NACIONAL,
@@ -15,6 +14,7 @@ from src.config import (
     LEGENDA_ORIGEM,
     ROTULOS,
     VARS_QUANT,
+    VERMELHO,
 )
 from src.data_loader import load_data
 
@@ -121,8 +121,8 @@ def render():
             )
             st.markdown(
                 "**Como ler:** os valores vão de -1 a 1. "
-                f"Perto de 1 ({destaque('azul-claro', AZUL_CLARO)}), as variáveis sobem juntas. "
-                f"Perto de -1 ({destaque('azul-escuro', AZUL_ESCURO)}), uma sobe e a outra desce. "
+                f"Perto de 1 ({destaque('vermelho', VERMELHO)}), as variáveis sobem juntas. "
+                f"Perto de -1 ({destaque('azul', AZUL)}), uma sobe e a outra desce. "
                 "Perto de 0, não há relação.",
                 unsafe_allow_html=True,
             )

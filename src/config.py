@@ -13,16 +13,17 @@ ROTULOS = {
     "acceleration": "Aceleração (s)",
 }
 
-# Paleta da identidade visual da Altair (Behance): azul-escuro para Nacional, azul-claro para Importado
-AZUL_ESCURO = "#003075"
-AZUL_CLARO = "#0094FF"
+# Paleta inspirada na Chevron (azul e vermelho), em tons mais claros que os da marca para ler bem
+# nos dois temas: azul para Nacional, vermelho para Importado
+AZUL = "#2F80D1"
+VERMELHO = "#D6455F"
 FUNDO_NEUTRO = "#F8F9F4"
-COR_NACIONAL = AZUL_ESCURO
-COR_IMPORTADO = AZUL_CLARO
+COR_NACIONAL = AZUL
+COR_IMPORTADO = VERMELHO
 COR_HISTOGRAMA = COR_NACIONAL
 
-# Escala do heatmap de correlação: azul-escuro (negativa), neutro no zero, azul-claro (positiva)
-ESCALA_CORRELACAO = alt.Scale(domain=[-1, 0, 1], range=[AZUL_ESCURO, FUNDO_NEUTRO, AZUL_CLARO])
+# Escala do heatmap de correlação: azul (negativa), neutro no zero, vermelho (positiva)
+ESCALA_CORRELACAO = alt.Scale(domain=[-1, 0, 1], range=[AZUL, FUNDO_NEUTRO, VERMELHO])
 CORES_ORIGEM = alt.Scale(domain=["Nacional", "Importado"], range=[COR_NACIONAL, COR_IMPORTADO])
 
 
